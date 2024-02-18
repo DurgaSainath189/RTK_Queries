@@ -12,11 +12,22 @@ export const productsApi = createApi({
       query: (id) => `/products/${id}`,
     }),
     //here mutation is used because we are adding the product
-    addNewProduct: builder.mutation({}),
+    addNewProduct: builder.mutation({
+      query: (newProduct) => ({
+        url: `/products/add`,
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: newProduct,
+      }),
+    }),
   }),
 });
 
 //rtk will create a hook behind the screen
 // use{$GetAllProducts}Query =>This is the how the hook is created.
 
-export const { useGetAllProductsQuery, useGetProductByIdQuery } = productsApi;
+export const {
+  useGetAllProductsQuery,
+  useGetProductByIdQuery,
+  useAddNewProductMutation,
+} = productsApi;
